@@ -18,21 +18,21 @@ class UsersDataTable extends DataTable
      * @param QueryBuilder $query Results from query() method.
      */
 
-     
     protected string|array $exportColumns = ["name", "email", "total_posts"];
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
+        $query->latest();
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->addColumn("total_posts", function($row) {
+            ->addColumn("total_posts", function ($row) {
                 $total_posts = $row->posts()->count();
-                if(!$total_posts) {
+                if (!$total_posts) {
                     return "No Posts";
                 }
                 return $total_posts . " Posts";
             })
-            ->addColumn("action", function($row) {
-                $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>
+            ->addColumn("action", function ($row) {
+                $btn = '<a onclick="updateRecord(' . $row->id . ', ' . $row->id . ')" class="edit btn btn-primary btn-sm">Edit</a>
                         <a style="color: white;" onclick="deleteRecord(' . $row->id . ', ' . $row->id . ')" class="delete btn btn-danger btn-sm">Delete</a>';
                 return $btn;
             })
@@ -53,11 +53,12 @@ class UsersDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->columns($this->getColumns())
-                    ->parameters([
-                        'dom'          => 'Bfrtip',
-                        'buttons'      => ['excel'],
-                    ]);
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->parameters([
+                'dom'          => 'Blfrtip',
+                'buttons'      => ['excel', 'csv'],
+            ]);
     }
 
     /**
@@ -67,8 +68,14 @@ class UsersDataTable extends DataTable
     {
         return [
             'id',
-            'name',
-            'email',
+            [
+                'data' => 'name',
+                'className' => "name-cell"
+            ],
+            [
+                'data' => 'email',
+                'className' => 'email-cell'
+            ],
             'total_posts',
             'action'
         ];

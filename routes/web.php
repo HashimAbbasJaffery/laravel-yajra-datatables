@@ -8,10 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::delete("user/delete", [UserController::class, "delete"])->name("user.delete");
 Route::get("user/create", [UserController::class, "create"])->name("user.create");
-
-Route::get("test", function() {
-    dd(auth()->user());
-});
+Route::post("user/create", [UserController::class, "store"])->name("user.store");
+Route::post("import", [UserController::class, "import"])->name("users.import");
 
 Route::get("export-users", function(UsersDataTable $dataTable) {
     if(!auth()->user()) {
@@ -20,6 +18,8 @@ Route::get("export-users", function(UsersDataTable $dataTable) {
     return $dataTable->render("users");
 })->name("users.list");
 
+
+Route::put("user/update", [UserController::class, "update"])->name("user.update");
 
 Route::get("logout", function() {
     Auth::logout();
@@ -32,6 +32,7 @@ Route::get("login", function() {
 
 Route::get("/auth/{provider}/redirect", [OAuthController::class, "redirect"])->name("login");
 Route::get("/auth/{provider}/callback", [OAuthController::class, "callback"]);
+
 
 // Route::get("users", function(DataTables $datatable) {
 

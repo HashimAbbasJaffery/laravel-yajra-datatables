@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac906bda2b5dcf28c1b71c2954cfa1ef",
+    "content-hash": "37704894ce4bfba1d9f85b934202ffb8",
     "packages": [
         {
             "name": "barryvdh/laravel-snappy",
@@ -7034,6 +7034,88 @@
                 }
             ],
             "time": "2025-02-26T07:10:17+00:00"
+        },
+        {
+            "name": "yajra/laravel-datatables-editor",
+            "version": "v12.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yajra/laravel-datatables-editor.git",
+                "reference": "a66894826aaf3c86393e83bcae3eb9e9f3c5e624"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-editor/zipball/a66894826aaf3c86393e83bcae3eb9e9f3c5e624",
+                "reference": "a66894826aaf3c86393e83bcae3eb9e9f3c5e624",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^12",
+                "illuminate/database": "^12",
+                "illuminate/http": "^12",
+                "illuminate/validation": "^12",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.1",
+                "laravel/pint": "^1.21.2",
+                "orchestra/testbench": "^10.1",
+                "rector/rector": "^2.0.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Yajra\\DataTables\\EditorServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "12.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yajra\\DataTables\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arjay Angeles",
+                    "email": "aqangeles@gmail.com"
+                }
+            ],
+            "description": "Laravel DataTables Editor plugin for Laravel 5.5+.",
+            "keywords": [
+                "JS",
+                "datatables",
+                "editor",
+                "html",
+                "jquery",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/yajra/laravel-datatables-editor/issues",
+                "source": "https://github.com/yajra/laravel-datatables-editor/tree/v12.1.5"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/yajra",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/yajra",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/yajra",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2025-04-10T01:38:58+00:00"
         },
         {
             "name": "yajra/laravel-datatables-html",
