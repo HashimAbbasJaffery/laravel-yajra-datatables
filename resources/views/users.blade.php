@@ -33,9 +33,8 @@
             contentType: false,
             processData: false,
             success: function(response) {
-                console.log(response);
                 alert('Users imported successfully!');
-                $('#dataTableBuilder').DataTable().ajax.reload(); // reload DataTable
+                $('#dataTableBuilder').DataTable().ajax.reload();
             },
             error: function(xhr) {
                 console.log(xhr.responseText);
@@ -105,6 +104,7 @@
         }
         });
         if (formValues) {
+            
             $.ajax({
                 url: `{{ route('user.store') }}`,
                 type: "post",
@@ -114,25 +114,8 @@
                     password: document.getElementById("swal-input3").value,
                     _token: "{{ csrf_token() }}",
                 },
-                success: function(response, textStatus, xhr) {
-                    const table = document.querySelector("#dataTableBuilder tbody");
-                    const last_row = document.querySelector("#dataTableBuilder tbody tr:last-child");
-                    table.insertAdjacentHTML(`beforebegin`, `
-                        <tr id="user-${response.id}" role="row" class="even">
-                            <td class="sorting_1">${response.id}</td>
-                            <td class="name-cell">${response.name}</td>
-                            <td class="email-cell">${response.email}</td>
-                            <td>No Posts</td>
-                            <td>
-                                <a onclick="updateRecord(${response.id}, ${response.id})" class="edit btn btn-primary btn-sm">Edit</a>
-                                <a style="color: white" onclick="deleteRecord(${response.id}, ${response.id})" class="delete btn btn-danger btn-sm">Delete</a>
-                            </td>
-                        </tr>
-                    `);
-                    last_row.remove();
-                    console.log(table);
-                    console.log(response);
-
+                success: function(response, textStatus, xhr) {                    
+                    $('#dataTableBuilder').DataTable().ajax.reload(); // reload DataTable
                 },
                 error: function(response) {
                     console.log(response.responseText);
@@ -198,7 +181,6 @@
             ];
         }
         });
-        console.log(formValues)
         if (formValues) {
             $.ajax({
                 url: `{{ route('user.update') }}`,
@@ -212,7 +194,6 @@
                     _method: "PUT",
                 },
                 success: function(response, textStatus, xhr) {
-                    console.log(xhr);
                     const values = formValues;
                     const name = document.querySelector(`#user-${row_id} .name-cell`);
                     const email = document.querySelector(`#user-${row_id} .email-cell`);
@@ -253,6 +234,7 @@
                 success: function(response) {
                     const row = document.getElementById(`user-${row_id}`);
                     row.remove();
+                $('#dataTableBuilder').DataTable().ajax.reload();
                 },
                 error: function(xhr) {
                     console.log(xhr.responseText)
@@ -260,14 +242,15 @@
             })
 
                 Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
                 });
             }
         });
     }
 </script>
+
 {!! $dataTable->scripts() !!}
 
 @endpush

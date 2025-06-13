@@ -15,6 +15,7 @@ class OAuthController extends Controller
 
     public function callback(string $provider) {
         $provider_user = Socialite::driver($provider)->user();
+        
         DB::transaction(function() use ($provider_user) {
             $user = User::updateOrCreate([
                 "email" => $provider_user->email

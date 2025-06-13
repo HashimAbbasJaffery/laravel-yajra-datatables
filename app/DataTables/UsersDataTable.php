@@ -24,6 +24,14 @@ class UsersDataTable extends DataTable
         $query->latest();
         return (new EloquentDataTable($query))
             ->addIndexColumn()
+            ->filter(function($query) {
+                if ($value = request('search')['value'] ?? null) {
+                    $query->where(function ($q) use ($value) {
+                        $q->where('name', 'like', "%{$value}%")
+                        ->orWhere('email', 'like', "%{$value}%");
+                    });
+                }
+            })
             ->addColumn("total_posts", function ($row) {
                 $total_posts = $row->posts()->count();
                 if (!$total_posts) {
